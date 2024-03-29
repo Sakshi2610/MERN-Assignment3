@@ -1,24 +1,35 @@
-import logo from './logo.svg';
+import { createContext, useEffect, useState } from 'react';
 import './App.css';
+import Header from './layout/Header';
+import Home from './layout/Home';
+
+export const ApplicationContext = createContext();
+
+const usersUrl = "https://jsonplaceholder.typicode.com/users";
 
 function App() {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch(usersUrl);
+        const data = await response.json();
+        setUsers(data);
+      } catch(error) {
+        console.log(error);
+      }
+    };
+    fetchUsers();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <ApplicationContext.Provider value={{ users }}>
+        <Header />
+        <Home />
+      </ApplicationContext.Provider>
+    </>
   );
 }
 
