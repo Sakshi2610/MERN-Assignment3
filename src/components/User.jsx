@@ -5,6 +5,10 @@ import "../App.css";
 const User = ({ user, selectedUserId, onUserClick }) => {
   const showDetails = user.id === selectedUserId;
 
+  const handleDetailsClick = (event) => {
+    event.stopPropagation();
+  };
+
   return (
     <>
       <div className={`users ${showDetails ? "show-details" : ""}`}>
@@ -17,7 +21,7 @@ const User = ({ user, selectedUserId, onUserClick }) => {
         </div>
         {showDetails && (
           <>
-            <div className="user-details">
+            <div className="user-details" onClick={handleDetailsClick}>
               <div>
                 <label className="detail">Name : </label>
                 {user.name}
