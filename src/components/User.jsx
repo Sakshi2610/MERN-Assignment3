@@ -12,7 +12,7 @@ const User = ({ user, selectedUserId, onUserClick }) => {
   return (
     <>
       <div className={`users ${showDetails ? "show-details" : ""}`}>
-        <div className="user-container" onClick={() => onUserClick(user.id)}>
+        <div className="user-container" onClick={() => onUserClick(user.id)} key={user.id}>
           <div>{user.name}</div>
           <div>{user.email}</div>
           <div className="user-footer">
